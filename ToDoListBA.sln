@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListBA", "ToDoListBA\ToDoListBA.csproj", "{7E95EEAE-48A3-4D92-8DE3-6B347C6BA809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoListBA", "ToDoListBA\ToDoListBA.csproj", "{7E95EEAE-48A3-4D92-8DE3-6B347C6BA809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList.API", "ToDoList.API\ToDoList.API.csproj", "{38397C5A-9DA2-4DE5-AB08-B9EE3073E32A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7E95EEAE-48A3-4D92-8DE3-6B347C6BA809}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E95EEAE-48A3-4D92-8DE3-6B347C6BA809}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E95EEAE-48A3-4D92-8DE3-6B347C6BA809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38397C5A-9DA2-4DE5-AB08-B9EE3073E32A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38397C5A-9DA2-4DE5-AB08-B9EE3073E32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38397C5A-9DA2-4DE5-AB08-B9EE3073E32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38397C5A-9DA2-4DE5-AB08-B9EE3073E32A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
