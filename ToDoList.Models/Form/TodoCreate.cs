@@ -11,15 +11,15 @@ namespace ToDoList.Models.Form
 {
     public class TodoCreate
     {
-		public Guid Id { get; set; }
+		public Guid Id { get; set; } = Guid.NewGuid();
 
-		[DisplayName("Tên")]
-		[MaxLength(250)]
-		[Required]
+		[Display(Name = "Task name")]
+		[MaxLength(20, ErrorMessage = "{0} can be up to {1} characters.")]
+		[Required(ErrorMessage = "please enter your {0}")]
 		public string Name { get; set; }
 
 
-		[DisplayName("Ưu tiên")]
+		[Display(Name = "Priority")]
 		public Priority Priority { get; set; }
 	}
 }

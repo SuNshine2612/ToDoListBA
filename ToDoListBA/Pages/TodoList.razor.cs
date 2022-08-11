@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace ToDoListBA.Pages
     {
         [Inject] private ITodoApiClient TodoApiClient { get; set; }
         [Inject] private IUserApiClient UserApiClient { get; set; }
+
+        [Inject] IToastService ToastService { get; set; }
 
         /// <summary>
         /// list todos
@@ -46,6 +49,7 @@ namespace ToDoListBA.Pages
 
         private async Task FormSubmited(EditContext editContext)
         {
+            ToastService.ShowInfo("Search completed", "Info");
             Todos = await TodoApiClient.GetAll(SearchForm);
         }
     }

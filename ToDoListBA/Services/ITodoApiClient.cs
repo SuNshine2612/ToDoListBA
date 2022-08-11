@@ -19,5 +19,7 @@ namespace ToDoListBA.Services
         /// <param name="id">Todo Id</param>
         /// <returns></returns>
         Task<TodoDTO> GetById(string id);
+
+        Task<bool> Insert(TodoCreate todo);
     }
 }

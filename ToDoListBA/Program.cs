@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,6 +15,7 @@ namespace ToDoListBA
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
+            builder.Services.AddBlazoredToast();
             builder.Services.AddTransient<ITodoApiClient, TodoApiClient>();
             builder.Services.AddTransient<IUserApiClient, UserApiClient>();
 

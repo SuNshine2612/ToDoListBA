@@ -4,7 +4,7 @@
 
 @if (Todos is null || Assignees is null)
 {
-	<LoadingIndicator></LoadingIndicator>
+	<LoadingComponent></LoadingComponent>
 }
 else
 {
@@ -37,6 +37,11 @@ else
 			<div class="col">
 				<button type="submit" class="btn btn-sm btn-primary">Search</button>
 			</div>
+
+			<div class="col">
+				<a href="/todo-add" class="btn btn-sm btn-warning">Create</a>
+			</div>
+
 		</div>
 	</EditForm>
 
@@ -57,9 +62,9 @@ else
 				{
 					<tr>
 						<td>@item.Name</td>
-						<td>@item.Priority</td>
+						<td><PriorityLabelComponent Priority="item.Priority"></PriorityLabelComponent></td>
 						<td>@item.AssigneeName</td>
-						<td>@item.Status</td>
+						<td><StatusLabelComponent Status = "item.Status"></StatusLabelComponent></td>
 						<td>@item.CreatedDate.ToString("dd/MM/yyy hh:mm")</td>
 						<td>
 							<a href="/todo-detail/@item.Id" class="btn btn-sm btn-outline-info">Detail</a>

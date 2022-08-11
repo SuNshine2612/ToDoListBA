@@ -28,5 +28,11 @@ namespace ToDoListBA.Services
             var detail = await _client.GetFromJsonAsync<TodoDTO>($"todos/{id}");
             return detail;
         }
+
+        public async Task<bool> Insert(TodoCreate todo)
+        {
+            var rs = await _client.PostAsJsonAsync("todos", todo);
+            return rs.IsSuccessStatusCode;
+        }
     }
 }

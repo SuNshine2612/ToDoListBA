@@ -1,0 +1,26 @@
+﻿@page "/todo-add"
+
+<EditForm Model="CreateForm" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+	<div class="form-group">
+        <label for="Name">Name</label>
+        <InputText class="form-control" @bind-Value="CreateForm.Name"></InputText>
+        <ValidationMessage For="()=>CreateForm.Name"></ValidationMessage>
+        <small class="form-text text-muted">Please enter todo title here!!</small>
+    </div>
+
+    <div class="form-group">
+        <label for="Priority">Priority</label>
+        <InputSelect class="form-control" @bind-Value="CreateForm.Priority">
+            @foreach (var item in Enum.GetNames(typeof(Priority)))
+           {
+               <option value="@item">@item</option>
+           }
+
+        </InputSelect>
+    </div>
+
+     <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>

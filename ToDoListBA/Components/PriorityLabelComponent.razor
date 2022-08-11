@@ -1,0 +1,23 @@
+﻿
+
+@switch(Priority)
+{
+	case Priority.Low:
+		<span class="badge badge-secondary">@Priority.Low</span>
+		break;
+
+	case Priority.Medium:
+		<span class="badge badge-warning">@Priority.Medium</span>
+		break;
+
+	case Priority.High:
+		<span class="badge badge-danger">@Priority.High</span>
+		break;
+
+}
+
+@code {
+
+	[Parameter]
+	public Priority Priority { get; set; }
+}
