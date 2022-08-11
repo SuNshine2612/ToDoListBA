@@ -1,34 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ToDoList.Models.Enums;
 
-namespace ToDoList.API.Entities
+namespace ToDoList.Models.DTO
 {
-	public class Todo
-	{
-		[Key]
+    public class TodoDTO
+    {
 		public Guid Id { get; set; }
 
 		[DisplayName("Tên")]
-		[MaxLength(250)]
-		[Required]
 		public string Name { get; set; }
-		
+
 		[DisplayName("Người nhận")]
 		public Guid? AssigneeId { get; set; }
 
-		[ForeignKey("AssigneeId")]
-		public User Assignee { get; set; }
+		[DisplayName("Người nhận")]
+		public string AssigneeName { get; set; }
 
 		[DisplayName("Ngày tạo")]
 		public DateTime CreatedDate { get; set; }
-		
-		[DisplayName("Ưu tiên")]
-		public Priority Priority { get; set; }
-		
+
 		[DisplayName("Trạng thái")]
 		public Status Status { get; set; }
+
+		[DisplayName("Ưu tiên")]
+		public Priority Priority { get; set; }
 	}
 }

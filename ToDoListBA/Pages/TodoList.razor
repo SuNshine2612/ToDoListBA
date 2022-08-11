@@ -1,7 +1,72 @@
 ﻿@page "/todo-list"
 
-<h3>Todo List, @Name</h3>
+<h3>Todo List</h3>
 
-@code {
-	string Name = "SuNshine";
+@if (Todos is null || Assignees is null)
+{
+	<LoadingIndicator></LoadingIndicator>
+}
+else
+{
+	<EditForm Model="@SearchForm" OnSubmit="@FormSubmited">
+		<div class="row">
+			<div class="col">
+				<InputText placeholder="Enter name todo" class="form-control" @bind-Value="SearchForm.Name"></InputText>
+			</div>
+
+			<div class="col">
+				<InputSelect class="form-control" @bind-Value="SearchForm.AssigneeId">
+					<option>Select an assignee</option>
+					@foreach (var assignee in Assignees)
+					{
+					<option value="@assignee.Id">@assignee.Fullname</option>
+					}
+				</InputSelect>
+			</div>
+
+			<div class="col">
+				<InputSelect class="form-control" @bind-Value="SearchForm.Priority">
+					<option>Select a priority</option>
+					@foreach (var item in Enum.GetNames(typeof(Priority)))
+					{
+					<option value="@item">@item</option>
+					}
+				</InputSelect>
+			</div>
+
+			<div class="col">
+				<button type="submit" class="btn btn-sm btn-primary">Search</button>
+			</div>
+		</div>
+	</EditForm>
+
+	<div class="row mt-4">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Priorty</th>
+					<th>Assigne</th>
+					<th>Status</th>
+					<th>Created Date</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Todos)
+				{
+					<tr>
+						<td>@item.Name</td>
+						<td>@item.Priority</td>
+						<td>@item.AssigneeName</td>
+						<td>@item.Status</td>
+						<td>@item.CreatedDate.ToString("dd/MM/yyy hh:mm")</td>
+						<td>
+							<a href="/todo-detail/@item.Id" class="btn btn-sm btn-outline-info">Detail</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }

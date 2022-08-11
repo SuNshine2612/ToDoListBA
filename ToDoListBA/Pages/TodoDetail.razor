@@ -1,0 +1,47 @@
+﻿@page "/todo-detail/{TodoId}"
+@using ToDoListBA.Services;
+
+@inject ITodoApiClient TodoApiClient
+
+@if(Details is null)
+{
+	<LoadingIndicator></LoadingIndicator>
+}
+else
+{
+	<h3>Detail Todo  @Details.Name</h3>
+	<table class="table table-striped">
+		<tr>
+			<td>Name</td>
+			<td>@Details.Name</td>
+		</tr>
+		<tr>
+			<td>Assignee</td>
+			<td>@Details.AssigneeName</td>
+		</tr>
+		<tr>
+			<td>Created Date</td>
+			<td>@Details.CreatedDate.ToString("dd/MM/yyy hh:mm")</td>
+		</tr>
+		<tr>
+			<td>Priorty</td>
+			<td>@Details.Priority</td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td>@Details.Status</td>
+		</tr>
+	</table>
+}
+
+@code {
+
+	[Parameter]
+	public string TodoId { get; set; }
+	protected TodoDTO Details { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		Details = await TodoApiClient.GetById(TodoId);
+	}
+}

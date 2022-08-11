@@ -1,4 +1,4 @@
-﻿namespace ToDoList.API.Enums
+﻿namespace ToDoList.Models.Enums
 {
 	public enum Priority
 	{
