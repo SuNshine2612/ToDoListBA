@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -32,6 +33,12 @@ namespace ToDoListBA.Services
         public async Task<bool> Insert(TodoCreate todo)
         {
             var rs = await _client.PostAsJsonAsync("todos", todo);
+            return rs.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> Update(Guid id, TodoUpdate todo)
+        {
+            var rs = await _client.PutAsJsonAsync($"todos/{id}", todo);
             return rs.IsSuccessStatusCode;
         }
     }

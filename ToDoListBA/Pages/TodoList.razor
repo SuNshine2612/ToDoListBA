@@ -1,4 +1,5 @@
 ﻿@page "/todo-list"
+@inject IConfiguration Configuration // how to use file setting json
 
 <h3>Todo List</h3>
 
@@ -39,7 +40,7 @@ else
 			</div>
 
 			<div class="col">
-				<a href="/todo-add" class="btn btn-sm btn-warning">Create</a>
+				<a href="/todo-add" class="btn btn-sm btn-outline-danger">Create</a>
 			</div>
 
 		</div>
@@ -65,9 +66,10 @@ else
 						<td><PriorityLabelComponent Priority="item.Priority"></PriorityLabelComponent></td>
 						<td>@item.AssigneeName</td>
 						<td><StatusLabelComponent Status = "item.Status"></StatusLabelComponent></td>
-						<td>@item.CreatedDate.ToString("dd/MM/yyy hh:mm")</td>
+						<td>@item.CreatedDate.ToString(Configuration["DateTimeFormat"])</td>
 						<td>
 							<a href="/todo-detail/@item.Id" class="btn btn-sm btn-outline-info">Detail</a>
+							<a href="/todo-edit/@item.Id" class="btn btn-sm btn-outline-success">Edit</a>
 						</td>
 					</tr>
 				}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ToDoList.Models.DTO;
 using ToDoList.Models.Form;
@@ -21,5 +22,7 @@ namespace ToDoListBA.Services
         Task<TodoDTO> GetById(string id);
 
         Task<bool> Insert(TodoCreate todo);
+
+        Task<bool> Update(Guid id, TodoUpdate todo);
     }
 }

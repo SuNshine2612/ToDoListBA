@@ -1,0 +1,34 @@
+﻿@page "/todo-edit/{TodoId}"
+
+
+@if(TodoDetail is null)
+{
+    <LoadingComponent/>
+}
+else
+{
+    <EditForm Model="TodoDetail" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+	<div class="form-group">
+        <label for="Name">Name</label>
+        <InputText class="form-control" @bind-Value="TodoDetail.Name"></InputText>
+        <ValidationMessage For="()=>TodoDetail.Name"></ValidationMessage>
+        <small class="form-text text-muted">Please enter todo title here!!</small>
+    </div>
+
+    <div class="form-group">
+        <label for="Priority">Priority</label>
+        <InputSelect class="form-control" @bind-Value="TodoDetail.Priority">
+            @foreach (var item in Enum.GetNames(typeof(Priority)))
+           {
+               <option value="@item">@item</option>
+           }
+
+        </InputSelect>
+    </div>
+    <a href="/todo-list" class="btn btn-outline-danger m-2">Back</a>
+     <button type="submit" class="btn btn-primary">Update</button>
+</EditForm>
+}

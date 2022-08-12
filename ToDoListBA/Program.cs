@@ -19,7 +19,10 @@ namespace ToDoListBA
             builder.Services.AddTransient<ITodoApiClient, TodoApiClient>();
             builder.Services.AddTransient<IUserApiClient, UserApiClient>();
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001/api/") }); // url api
+            builder.Services.AddScoped(sp => new HttpClient 
+            { 
+                BaseAddress = new Uri(builder.Configuration["BackendApiUrl"])  // url api
+            }); 
 
             await builder.Build().RunAsync();
         }

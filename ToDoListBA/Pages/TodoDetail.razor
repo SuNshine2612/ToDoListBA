@@ -1,6 +1,6 @@
 ﻿@page "/todo-detail/{TodoId}"
 @using ToDoListBA.Services;
-
+@inject IConfiguration Configuration
 @inject ITodoApiClient TodoApiClient
 
 @if(Details is null)
@@ -21,15 +21,15 @@ else
 		</tr>
 		<tr>
 			<td>Created Date</td>
-			<td>@Details.CreatedDate.ToString("dd/MM/yyy hh:mm")</td>
+			<td>@Details.CreatedDate.ToString(Configuration["DateTimeFormat"])</td>
 		</tr>
 		<tr>
 			<td>Priorty</td>
-			<td>@Details.Priority</td>
+			<td><PriorityLabelComponent Priority="@Details.Priority"></PriorityLabelComponent></td>
 		</tr>
 		<tr>
 			<td>Status</td>
-			<td>@Details.Status</td>
+			<td><StatusLabelComponent Status="@Details.Status"></StatusLabelComponent></td>
 		</tr>
 	</table>
 }
