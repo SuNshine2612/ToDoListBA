@@ -24,5 +24,7 @@ namespace ToDoListBA.Services
         Task<bool> Insert(TodoCreate todo);
 
         Task<bool> Update(Guid id, TodoUpdate todo);
+
+        Task<bool> Delete(Guid id);
     }
 }

@@ -41,5 +41,11 @@ namespace ToDoListBA.Services
             var rs = await _client.PutAsJsonAsync($"todos/{id}", todo);
             return rs.IsSuccessStatusCode;
         }
+
+        public async Task<bool> Delete(Guid id)
+        {
+            var rs = await _client.DeleteAsync($"todos/{id}");
+            return rs.IsSuccessStatusCode;
+        }
     }
 }

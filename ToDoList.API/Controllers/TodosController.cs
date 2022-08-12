@@ -98,10 +98,23 @@ namespace ToDoList.API.Controllers
             });
         }
 
-        /*[HttpDelete("{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _todoRepository.Delete()
-        }*/
+            var find = await _todoRepository.GetById(id);
+            if(find == null)
+                return NotFound(ModelState);
+
+            var rs = await _todoRepository.Delete(find);
+            return Ok(new TodoDTO()
+            {
+                Id = rs.Id,
+                Name = rs.Name,
+                CreatedDate = rs.CreatedDate,
+                AssigneeId = rs.AssigneeId,
+                Priority = rs.Priority,
+                Status = rs.Status,
+            });
+        }
     }
 }

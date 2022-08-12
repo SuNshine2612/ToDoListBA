@@ -3,48 +3,13 @@
 
 <h3>Todo List</h3>
 
-@if (Todos is null || Assignees is null)
+@if (Todos is null)
 {
 	<LoadingComponent></LoadingComponent>
 }
 else
 {
-	<EditForm Model="@SearchForm" OnSubmit="@FormSubmited">
-		<div class="row">
-			<div class="col">
-				<InputText placeholder="Enter name todo" class="form-control" @bind-Value="SearchForm.Name"></InputText>
-			</div>
-
-			<div class="col">
-				<InputSelect class="form-control" @bind-Value="SearchForm.AssigneeId">
-					<option>Select an assignee</option>
-					@foreach (var assignee in Assignees)
-					{
-					<option value="@assignee.Id">@assignee.Fullname</option>
-					}
-				</InputSelect>
-			</div>
-
-			<div class="col">
-				<InputSelect class="form-control" @bind-Value="SearchForm.Priority">
-					<option>Select a priority</option>
-					@foreach (var item in Enum.GetNames(typeof(Priority)))
-					{
-					<option value="@item">@item</option>
-					}
-				</InputSelect>
-			</div>
-
-			<div class="col">
-				<button type="submit" class="btn btn-sm btn-primary">Search</button>
-			</div>
-
-			<div class="col">
-				<a href="/todo-add" class="btn btn-sm btn-outline-danger">Create</a>
-			</div>
-
-		</div>
-	</EditForm>
+	<TodoSearchComponent OnSearch="SearchTask"></TodoSearchComponent>
 
 	<div class="row mt-4">
 		<table class="table table-striped">
@@ -70,10 +35,18 @@ else
 						<td>
 							<a href="/todo-detail/@item.Id" class="btn btn-sm btn-outline-info">Detail</a>
 							<a href="/todo-edit/@item.Id" class="btn btn-sm btn-outline-success">Edit</a>
+							<button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteTask(item.Id)">Delete</button>
 						</td>
 					</tr>
 				}
 			</tbody>
 		</table>
 	</div>
+
+						<ConfirmComponent 
+						Messages = "@("Are you sure to delete ?")"
+						Title = "Delete Task"
+						@ref = "DeleteConfirmation"
+						ConfirmationChanged = "OnConfirmDeleteTask">
+					</ConfirmComponent>
 }
