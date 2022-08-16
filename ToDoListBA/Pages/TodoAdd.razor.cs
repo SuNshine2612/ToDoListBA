@@ -23,7 +23,7 @@ namespace ToDoListBA.Pages
 
         private async Task SubmitForm(EditContext context)
         {
-            var rs = await TodoApiClient.Insert(CreateForm);
+            var rs = await TodoApiClient.InsertTask(CreateForm);
             if(rs is true)
             {
                 ToastService.ShowSuccess($"{CreateForm.Name} has been created successfully.", "Ok");

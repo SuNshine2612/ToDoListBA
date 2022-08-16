@@ -1,5 +1,4 @@
-﻿using Blazored.Toast.Services;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using ToDoList.Models.DTO;
 using ToDoList.Models.Form;
 using ToDoListBA.Services;
 
-namespace ToDoListBA.Components
+namespace ToDoListBA.Pages.Components
 {
 
     public partial class TodoSearchComponent
@@ -28,7 +27,7 @@ namespace ToDoListBA.Components
         /// </summary>
         private List<AssigneeDTO> Assignees;
 
-        
+
 
 
         // https://stackoverflow.com/questions/56436577/blazor-form-submit-needs-two-clicks-to-refresh-view

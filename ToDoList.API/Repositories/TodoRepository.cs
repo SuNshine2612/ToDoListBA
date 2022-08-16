@@ -7,6 +7,7 @@ using ToDoList.API.Data;
 using ToDoList.API.Entities;
 using ToDoList.Models.DTO;
 using ToDoList.Models.Form;
+using ToDoList.Models.SeedWorks;
 
 namespace ToDoList.API.Repositories
 {
@@ -37,7 +38,7 @@ namespace ToDoList.API.Repositories
             return await _context.Todos.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Todo>> GetTodos(TodoListSearch search)
+        public async Task<PagedList<Todo>> GetTodos(TodoListSearch search)
         {
             /* return await _context.Todos
              .Include(x => x.Assignee)
@@ -62,7 +63,13 @@ namespace ToDoList.API.Repositories
                 query = query.Where(x => x.Priority == search.Priority.Value);
             }
 
-            return await query.OrderByDescending(x => x.CreatedDate).ToListAsync();
+            var count = await query.CountAsync();
+            var datas = await query.OrderByDescending(x => x.CreatedDate)
+                .Skip((search.PageNumber - 1) * search.PageSize)
+                .Take(search.PageSize)
+                .ToListAsync();
+
+            return new PagedList<Todo>(datas, count, search.PageNumber, search.PageSize);
         }
 
         public async Task<Todo> Update(Todo todo)

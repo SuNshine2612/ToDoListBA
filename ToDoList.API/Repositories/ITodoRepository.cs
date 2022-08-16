@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ToDoList.API.Entities;
 using ToDoList.Models.Form;
+using ToDoList.Models.SeedWorks;
 
 namespace ToDoList.API.Repositories
 {
     public interface ITodoRepository
     {
-        Task<IEnumerable<Todo>> GetTodos(TodoListSearch search);
+        //Task<IEnumerable<Todo>> GetTodos(TodoListSearch search);
+        Task<PagedList<Todo>> GetTodos(TodoListSearch search);
+
         Task <Todo> GetById(Guid id);
         Task<Todo> Create(Todo todo);
         Task<Todo> Update(Todo todo);

@@ -29,24 +29,38 @@ else
 					<tr>
 						<td>@item.Name</td>
 						<td><PriorityLabelComponent Priority="item.Priority"></PriorityLabelComponent></td>
-						<td>@item.AssigneeName</td>
+						<td><a @onclick="() => OpenAssignPopup(item.Id)">@item.AssigneeName</a></td>
 						<td><StatusLabelComponent Status = "item.Status"></StatusLabelComponent></td>
 						<td>@item.CreatedDate.ToString(Configuration["DateTimeFormat"])</td>
 						<td>
 							<a href="/todo-detail/@item.Id" class="btn btn-sm btn-outline-info">Detail</a>
 							<a href="/todo-edit/@item.Id" class="btn btn-sm btn-outline-success">Edit</a>
-							<button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteTask(item.Id)">Delete</button>
+							<button class="btn btn-sm btn-outline-danger" @onclick="() => OpenDeleteTaskPopup(item.Id)">Delete</button>
 						</td>
 					</tr>
 				}
 			</tbody>
+			<!--Paging-->
+			<tfoot>
+				<PagingComponent 
+					MetaData="MetaData" 
+					Spread="3" 
+					SelectedPage="SelectedPage">
+				</PagingComponent>
+			</tfoot>
 		</table>
 	</div>
 
-						<ConfirmComponent 
-						Messages = "@("Are you sure to delete ?")"
-						Title = "Delete Task"
-						@ref = "DeleteConfirmation"
-						ConfirmationChanged = "OnConfirmDeleteTask">
-					</ConfirmComponent>
+	<ConfirmComponent 
+		Messages = "@("Are you sure to delete ?")"
+		Title = "Delete Task"
+		@ref = "DeleteConfirmation"
+		ConfirmationChanged = "OnConfirmDeleteTask">
+	</ConfirmComponent>
+
+	<AssignTaskComponent
+		@ref = "AssignTask"
+		CloseEventCallback = "OnAssignTaskSuccess">
+
+	</AssignTaskComponent>
 }

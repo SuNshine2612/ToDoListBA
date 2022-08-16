@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoList.API.Entities;
@@ -7,6 +8,7 @@ using ToDoList.API.Repositories;
 using ToDoList.Models.DTO;
 using ToDoList.Models.Enums;
 using ToDoList.Models.Form;
+using ToDoList.Models.SeedWorks;
 
 namespace ToDoList.API.Controllers
 {
@@ -24,8 +26,9 @@ namespace ToDoList.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TodoListSearch search)
         {
-            var list = await _todoRepository.GetTodos(search);
-            var rs = list.Select(x => new TodoDTO
+            var pagedList = await _todoRepository.GetTodos(search);
+
+            var rs = pagedList.Datas.Select(x => new TodoDTO
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -33,10 +36,15 @@ namespace ToDoList.API.Controllers
                 AssigneeId = x.AssigneeId,
                 Priority = x.Priority,
                 Status = x.Status,
-                AssigneeName = x.Assignee is not null ? $"{x.Assignee.FirstName} {x.Assignee.LastName}" : string.Empty
+                AssigneeName = x.Assignee is not null ? $"{x.Assignee.FirstName} {x.Assignee.LastName}" : "Not Assign"
             });
+            //var rs = new List<TodoDTO>();
 
-            return Ok(rs);
+            return Ok(new PagedList<TodoDTO>(rs.ToList(), 
+                pagedList.MetaData.TotalCount,
+                pagedList.MetaData.CurrentPage, 
+                pagedList.MetaData.PageSize
+            ));
         }
 
         [HttpGet("{id}")]
@@ -96,6 +104,30 @@ namespace ToDoList.API.Controllers
                 Priority = rs.Priority,
                 Status = rs.Status,
             });
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AssignUser(TodoAssignUser assignUser)
+        {
+            var find = await _todoRepository.GetById(assignUser.TodoId).ConfigureAwait(false);
+            if(find == null)
+                return NotFound(ModelState);
+
+            find.AssigneeId = assignUser.UserId;
+            var rs = await _todoRepository.Update(find).ConfigureAwait(false);
+            if (rs != null)
+                return Ok();
+            else
+                return BadRequest(ModelState);
+            /*return Ok(new TodoDTO()
+            {
+                Id = rs.Id,
+                Name = rs.Name,
+                CreatedDate = rs.CreatedDate,
+                AssigneeId = rs.AssigneeId,
+                Priority = rs.Priority,
+                Status = rs.Status,
+            });*/
         }
 
         [HttpDelete("{id}")]

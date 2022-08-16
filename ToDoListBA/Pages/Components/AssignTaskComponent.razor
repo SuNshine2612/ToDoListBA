@@ -1,0 +1,38 @@
+﻿@if(ShowDialog && Assignees != null)
+{
+	<!-- The Modal -->
+	<div class="modal fade show d-block" id="assignModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h5 class="modal-title">Assign task to user</h5>
+					<button type="button" class="close" data-dismiss="modal" @onclick="()=>Hide()">&times;</button>
+				</div>
+
+				
+				<EditForm Model="AssignUserForm" OnSubmit="HandleAssignSubmit">
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Choose an assignee</label>
+							<InputSelect class="form-control" @bind-Value="AssignUserForm.UserId">
+								<option value="">Select a user</option>
+								@foreach (var assignee in Assignees)
+								{
+								<option value="@assignee.Id">@assignee.Fullname</option>
+								}
+							</InputSelect>
+						</div>
+					</div>
+
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" @onclick="()=>Hide()">Close</button>
+						<button type="submit" class="btn btn-primary btn-sm">Assign</button>
+					</div>
+				</EditForm>
+			</div>
+		</div>
+	</div>
+}

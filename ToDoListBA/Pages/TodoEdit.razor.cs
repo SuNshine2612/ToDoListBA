@@ -25,7 +25,7 @@ namespace ToDoListBA.Pages
 
         private async Task SubmitForm(EditContext context)
         {
-            var rs = await TodoApiClient.Update(Guid.Parse(TodoId), TodoDetail);
+            var rs = await TodoApiClient.UpdateTask(Guid.Parse(TodoId), TodoDetail);
             if (rs is true)
             {
                 ToastService.ShowSuccess($"{TodoDetail.Name} has been updated successfully.", "Ok");
